@@ -1,4 +1,4 @@
-var url = `https://clima-back-git-main-fabio2100.vercel.app`
+var url = `https://clima-back-fabio2100.vercel.app`
 
 new Vue({
     el: '#app',
