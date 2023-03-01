@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleccione la ciudad</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <script src="https://kit.fontawesome.com/bcded251a0.js" crossorigin="anonymous"></script>
+</head>
+<style>
+  html,body{
+    margin:0px;
+    height:auto;
+  }
+  .modoNocturno{
+    background-color: black;
+    color: silver;
+    width: 100%;
+    height:100%;
+    
+  }
+  .modoClaro{
+    background-color: white;
+    width: 100%;
+    height:100%;
+  }
+</style>
+<body>
+
+<div id="app" v-bind:class='[{modoNocturno:modoNocturno},{modoClaro:modoClaro}]'>
+  <div class="columns">
+    <div class="field has-addons column is-three-quarters" style='padding: 2em;'>
+      <div class="control">
+        <input class="input" type="text" placeholder="Ingrese la ciudad" v-model='ciudad' v-bind:class='[{modoNocturno:modoNocturno},{modoClaro:modoClaro}]'>
+      </div>
+      <div class="control">
+        <a class="button is-info" @click='cargarCiudades()'>
+          Buscar
+        </a>
+      </div>
+    </div>
+    <div class="column is-narrow">
+      <button style="width: 50px;height: 60px;margin-top: 2em;margin-left: 2em;" class="button is-rounded is-small" v-bind:class="[{modoNocturno:modoNocturno},{modoClaro:modoClaro}]" @click='modoNocturnoF'>
+        <i v-if='modoNocturno' class="fas fa-sun"></i>
+        <i v-else class="fas fa-moon"></i>
+      </button>
+    </div>
+  </div>
+  
+  
+  
+  <div class="columns">   
+    <div class="column">
+      <div style="padding-left:2em">
+      <table class="table" v-bind:class='[{modoNocturno:modoNocturno},{modoClaro:modoClaro}]' style="overflow: scroll;" >
+        <thead>
+          <tr>
+            <td></td>
+            <td>Ciudad</td>
+            <td align="rigth">Latitud</td>
+            <td></td>
+            <td align="rigth">Longitud</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for='ciudad in listaCiudades'>
+            <td ><i class="fas fa-cloud-sun-rain" style="cursor:pointer;"  @click='imprimeCiudad(ciudad.lat,ciudad.longi)'></i></td>
+            <td v-model='nombreCiudad'>{{ciudad.nombre}}</td>
+            <td align="center" v-model='latitudCiudad'>{{(Math.abs(ciudad.lat)).toFixed()}}</td>
+            <td v-if='ciudad.lat>0' style='color:red'>Norte</td>
+            <td v-else style='color:green'>Sur</td>
+            <td align="center" v-model='longitudCiudad'>{{(Math.abs(ciudad.longi)).toFixed()}}</td>
+            <td v-if='ciudad.longi>0' style='color:blue'>Este</td>
+            <td v-else style='color:orange'>Oeste</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="column" v-if='mostrarTabla' align="center" style="padding: 2em">
+      <div>
+        <i class="fas fa-cloud-sun-rain">   {{climaDesc[0].desc}}</i>
+      </div>
+      <div>
+        <i class="fas fa-wind">  {{climaDesc[0].viento}} m/s </i>
+      </div>
+      <div>
+        <i class="fas fa-chevron-up">   {{climaDesc[0].max}} °C</i>
+      </div>
+      <div>
+        <i class="fas fa-thermometer-three-quarters">  {{climaDesc[0].temp}}  °C</i>
+      </div>
+      <div>
+        <i class="fas fa-chevron-down">  {{climaDesc[0].min}}  °C</i>
+      </div>
+      <div>
+        <i class="fas fa-tint">  {{climaDesc[0].humedad}}  %</i>
+      </div>
+      <div>
+        <i class="fas fa-rainbow">  {{climaDesc[0].presion}}  hPa</i>
+      </div>
+      <div>
+        <i class="fas fa-globe-americas">  {{climaDesc[0].nombre}}</i>  
+      </div>
+      <div>
+        <i class="fas fa-clock">  {{(horaCiudad[0].localTime).slice(11)}}</i>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
