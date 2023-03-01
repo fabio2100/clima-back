@@ -1,4 +1,4 @@
-var url = `https://clima-back.vercel.app`
+var url = `http://localhost:3000`
 
 new Vue({
     el: '#app',
@@ -45,7 +45,6 @@ new Vue({
         this.mostrarTabla = false;
         var self = this;
         let ciudad = this.ciudad;
-        //axios.get('https://clima-fabio.herokuapp.com/api/buscar/'+ciudad)
         axios.get(`${url}/api/busqueda/${ciudad}`)
         .then(
           function (response){
@@ -55,10 +54,6 @@ new Vue({
       },
       imprimeCiudad: async function(latitud,longitud){
         var self = this;
-  
-  
-        //let clima = 'https://clima-fabio.herokuapp.com/api/clima/'+latitud+'/'+longitud;
-        //let hora =  'https://clima-fabio.herokuapp.com/api/timeZone/'+latitud+'/'+longitud;
         let clima = `${url}/api/clima/${latitud}/${longitud}`;
         let hora = `${url}/api/timeZone/${latitud}/${longitud}`
   
