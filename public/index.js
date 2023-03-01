@@ -1,4 +1,4 @@
-var url = `http://localhost:3000`
+var url = `https://clima-back-git-main-fabio2100.vercel.app`
 
 new Vue({
     el: '#app',
